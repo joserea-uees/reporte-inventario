@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Route::prefix('reportes')->group(function () {
     Route::get('/bajo-stock', [ReportController::class, 'lowStock'])->name('reports.low-stock');
+    Route::get('/bajo-stock/exportar', [ReportController::class, 'exportLowStock'])->name('reports.low-stock.export');
     Route::get('/top-valor', [ReportController::class, 'topValue'])->name('reports.top-value');
     Route::get('/resumen', [ReportController::class, 'summary'])->name('reports.summary');
 });

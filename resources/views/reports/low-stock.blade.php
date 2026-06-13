@@ -2,9 +2,15 @@
 
 @section('content')
 
-<h2 class="page-title">
-    Productos con Bajo Stock
-</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="page-title m-0">
+        Productos con Bajo Stock
+    </h2>
+    <a href="{{ route('reports.low-stock.export') }}" class="btn btn-success d-flex align-items-center gap-2">
+        <i class="fa-solid fa-file-csv fa-lg"></i>
+        <span>Exportar CSV</span>
+    </a>
+</div>
 
 <div class="glass-card p-4 table-modern">
 
