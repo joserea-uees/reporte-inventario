@@ -2,24 +2,18 @@ services:
 
   mysql:
     image: mysql:8.4
-
     container_name: inventario_mysql
-
     restart: unless-stopped
-
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: inventario
       MYSQL_USER: inventario_user
       MYSQL_PASSWORD: inventario123
-
     ports:
       - "3306:3306"
-
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-
     networks:
       - inventario_net
 
@@ -27,17 +21,16 @@ services:
     build:
       context: .
       dockerfile: reports/Dockerfile
-
     container_name: inventario_reportes
-
     restart: unless-stopped
-
     ports:
       - "8000:8000"
-
     depends_on:
       - mysql
-
+    # --- AQUÍ ESTÁ EL TRUCO PARA DESARROLLAR ---
+    volumes:
+      - .:/app
+    # -------------------------------------------
     environment:
       DB_CONNECTION: mysql
       DB_HOST: mysql
@@ -45,12 +38,12 @@ services:
       DB_DATABASE: inventario
       DB_USERNAME: inventario_user
       DB_PASSWORD: inventario123
-
     networks:
       - inventario_net
 
 networks:
   inventario_net:
+    driver: bridge
 
 volumes:
   mysql_data:
